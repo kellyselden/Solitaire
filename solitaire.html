@@ -1,0 +1,54 @@
+<html>
+	<head>
+		<script type="text/javascript" src="inheritance.js"></script>
+		<script type="text/javascript" src="timer.js"></script>
+		<script type="text/javascript" src="solitaire.js"></script>
+		<link type="text/css" rel="Stylesheet" href="solitaire.css" />
+	</head>
+	<body>
+		<div id="topBar" style="text-align:center">
+			<span id="game" style="position:absolute;left:0" onclick="toggleDropDown()">Game</span>
+			<div style="margin:0 auto;width:50%;text-align:center">Score: <span id="score"></span></div>
+			<span id="timer" style="position:absolute;right:0;top:0"></span>
+		</div>
+		<div id="dropDown" onclick="toggleDropDown()">
+			<div onclick="solitaire.newGame()">New Game</div>
+			<div id="deckName" onclick="solitaire.toggleDeckNumber();updateDeckName();"></div>
+			<div id="drawNumber" onclick="solitaire.toggleDrawNumber();updateDrawNumber();"></div>
+			<div onclick="solitaire.solve()">Solve</div>
+		</div>
+		<canvas id="canvas"></canvas>
+		<script type="text/javascript">
+			var canvas = document.getElementById('canvas');
+			function resize() {
+				canvas.width = window.innerWidth;
+				canvas.height = window.innerHeight - 20;
+			}
+			resize();
+			var solitaire = new Solitaire(canvas,
+				document.getElementById('score'),
+				document.getElementById('timer'));
+			window.onresize = function() {
+				resize();
+				solitaire.scale();
+			};
+			
+			function toggleDropDown() {
+				var dropDown = document.getElementById('dropDown');
+				dropDown.style.display = dropDown.style.display ? '' : 'none';
+			}
+			toggleDropDown();
+			
+			function updateDrawNumber() {
+				document.getElementById('drawNumber').innerHTML
+					= 'Draw ' + (solitaire.drawThree ? 'Three' : 'One');
+			}
+			updateDrawNumber();
+			
+			function updateDeckName() {
+				document.getElementById('deckName').innerHTML = solitaire.deckName;
+			}
+			updateDeckName();
+		</script>
+	</body>
+</html>

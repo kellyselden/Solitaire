@@ -1,0 +1,40 @@
+<html>
+	<head>
+		<script type="text/javascript" src="inheritance.js"></script>
+		<script type="text/javascript" src="CanvasHelper.js"></script>
+	</head>
+	<body style="margin:0">
+		<canvas id="canvas"></canvas>
+		<script type="text/javascript">
+var canvas = document.getElementById('canvas');
+function resize() {
+	canvas.width = window.innerWidth;
+	canvas.height = window.innerHeight;
+}
+resize();
+function scale() {
+	
+	
+	helper.resize();
+}
+window.onresize = function() {
+	resize();
+	scale();
+};
+var helper = new CanvasHelper(canvas, 'rgb(50, 50, 50)');
+var box4 = new CanvasColorObject(4, 100, 0, 50, 50, 3, true, 'rgb(100, 100, 0)');
+var box1 = new CanvasColorObject(1, 0, 0, 50, 50, 1, true, 'rgb(100, 0, 0)');
+var box2 = new CanvasColorObject(2, 50, 0, 50, 50, 2, true, 'rgb(0, 100, 0)');
+var box3 = new CanvasColorObject(3, 50, 50, 50, 50, 0, false, 'rgb(0, 0, 100)');
+helper.add(box1);
+helper.add(box2);
+box2.ondrag = function(changeX, changeY) {
+	box4.x += changeX;
+	box4.y += changeY;
+};
+helper.add(box3);
+helper.add(box4);
+scale();
+		</script>
+	</body>
+</html>
